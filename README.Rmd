@@ -1,0 +1,59 @@
+---
+title: "gerForest - German distribution of forest tree species"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+**Note::** This repository is still work in progress!!!
+
+```{r_loadenv, echo=FALSE}
+#set global chunk options
+knitr::opts_chunk$set(cache=TRUE, warning=FALSE, message=FALSE, comment=NA, fig.align="center")
+
+#Set working directory
+#setwd("")
+
+#Load libraries
+library(sp) #needed for raster package
+library(raster) #needed for loading raster files
+library(rgdal)
+library(lattice) #needed for rasterVis package
+library(rasterVis) #needed for levelplot function
+library(rgeos)
+library(grid) #needed for gridExtra package
+library(gridExtra) #needed for plotting several levelplots in grid
+library(rgbif)
+library(rworldxtra)
+
+#Define spatial projection
+crs.geo <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0")  
+
+#Load Worldmap
+data(countriesHigh)
+
+#Save original plotting command and add transparent background
+op <- par(no.readonly=TRUE)
+```
+
+Choose a tree species:
+
+```{r, echo = TRUE, eval=FALSE}
+selectInput("data", "", c("co2", "lh"))
+```
+
+See a plot:
+
+```{r, echo = TRUE, eval=FALSE}
+renderPlot({
+d <- get(input$data)
+plot(d)
+})
+```
+
+Interactive plots
+
+```{r, echo=TRUE, eval=FALSE}
+library(rCharts)
+```
+
